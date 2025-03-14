@@ -23,6 +23,7 @@ class LoginController extends Controller
             echo "レコードなし"; //リダイレクト 
         } else {
             //はるきのAPIに情報を返す処理
+            //とみっくばかやろ
         }
     }
 }
