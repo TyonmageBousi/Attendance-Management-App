@@ -9,4 +9,7 @@ Route::get('/', function () {
 
 });
 
+
 Route::get('/test', [LoginController ::class, 'index'])->name('test');
+
+Route::post('/login', [LoginController ::class, 'login'])->name('login');
