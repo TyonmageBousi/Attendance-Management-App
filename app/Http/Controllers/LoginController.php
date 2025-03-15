@@ -26,5 +26,14 @@ class LoginController extends Controller
         }
     }
 
-    public function ()
+    public function new_login(){
+
+        return view('new_login'); 
+    }
+
+    public function new_create_account(){
+        dd("新規作成");
+
+        
+    }
 }
