@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\new_create_account;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -31,8 +32,21 @@ class LoginController extends Controller
         return view('new_login'); 
     }
 
-    public function new_create_account(){
-        dd("新規作成");
+    public function new_create_account(new_create_accountRequest $request){
+        
+        $name = $request-> name;
+        $password = $request-> password;
+        $email = $request -> email;
+        $user = new user;
+
+        if (is_null($user->where('email', $email)->where('password', $password)->where('name', $name)->first()))  { 
+            echo "既に登録されています"; 
+        } else {
+
+        };
+        
+
+
 
         
     }

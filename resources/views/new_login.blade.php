@@ -9,8 +9,8 @@
 <div>
 <form action="{{ url('/new_create_account') }}" method="POST">
 @csrf
-            <label for="user_id">ユーザーID</label>
-            <input type="text" id="user_id" name="user_id" required>
+            <label for="user_id">名前</label>
+            <input type="text" id="name" name="name" required>
         </div>
 
         <!-- メールアドレス入力 -->
