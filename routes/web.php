@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::post('/new_create_account', [LoginController::class, 'new_create_account'])->name('new_create_account');
+Route::get('/new_login', [LoginController::class, 'new_login'])->name('new_login');
+Route::get('/login', [LoginController::class, 'index'])->name('index');
+Route::post('/login_auth', [LoginController::class, 'login'])->name('index');

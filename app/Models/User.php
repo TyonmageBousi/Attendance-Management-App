@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens; // 追加
 
-class User extends Model
+class User extends Authenticatable
 {
-    //登録・更新を許可するカラム
+    // 登録・更新を許可するカラム
     protected $fillable = [
         'name',
         'email',
@@ -14,9 +15,8 @@ class User extends Model
         'profile_picture'
     ];
 
-     //登録・更新を不許可するカラム
-    protected $guarded = [
-        'id',
-    ];
+    // 登録・更新を不許可にするカラム（もし使いたい場合はこっちを使う）
+    // protected $guarded = ['id'];
 
+    use HasApiTokens; // Sanctumトレイトを追加
 }
