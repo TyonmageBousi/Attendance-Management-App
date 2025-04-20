@@ -7,7 +7,7 @@
 </head>
 <body>
     <p>ログイン、入力画面(仮)</p>
-    <form action="{{ url('/login') }}" method="POST">
+    <form action="{{ url('/login_auth') }}" method="POST">
         @csrf
         <label for="email">メールアドレス</label>
         <input type="text" id="email" name="email" required>
