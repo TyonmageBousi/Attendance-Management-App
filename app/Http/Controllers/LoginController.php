@@ -21,6 +21,13 @@ class LoginController extends Controller
                 return response()->json(['error' => 'ユーザーが見つかりません。'], 404);
             }
             $token = $user->createToken('AccessToken')->plainTextToken;
+            $name = $user->name;
+            $email = $user->email;
+            $profile_picture = $user->profile_picture;
+            
+
+
+
             return response()->json(['token' => $token]);
         } else {
             return response()->json(['error' => '認証に失敗しました。'], 401);
