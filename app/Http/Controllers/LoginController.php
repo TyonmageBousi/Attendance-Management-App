@@ -13,23 +13,19 @@ class LoginController extends Controller
 {    // リクエストからメールアドレスとパスワードを取得
     public function login(LoginRequest $request)
     {
+        
         $email = $request->email;
         $password = $request->password;
-        //response()->json(['work_time' => $email], 200);
-
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $user = User::where('email', $email)->first();
             if (!$user) {
                 return response()->json(['error' => 'ユーザーが見つかりません。'], 404);
             }
-XSRF-TOKEN'work_time' => $user], 200);
             $name = $user->name;
             $email = $user->email;
 
             $profile_picture = $user->profile_picture;
             $posts = User::find($user->id)->attendances()->nowMonth()->get();
-          //  response()->json(['work_time' => $posts], 200);
-
             foreach ($posts as $post) {
                 $clock_in = new \DateTime($post->clock_in);  // グローバルな DateTime クラスを使用
                 $clock_out = new \DateTime($post->clock_out);
@@ -41,7 +37,7 @@ XSRF-TOKEN'work_time' => $user], 200);
                 $break_time_in_minutes = ($break_time->format('H') * 60) + $break_time->format('i');  // 分単位に変換
                 $overtime_in_minutes = ($overtime->format('H') * 60) + $overtime->format('i');
                 $final_work_time_in_minutes = $work_time_in_minutes - $break_time_in_minutes + $overtime_in_minutes;
-                response()->json(['work_time' => $final_work_time_in_minutes], 200);
+                return response()->json(['work_time' => $final_work_time_in_minutes], 200);
             }
             ;
 
