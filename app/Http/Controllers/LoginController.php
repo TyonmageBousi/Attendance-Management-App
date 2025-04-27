@@ -6,7 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use HasApiTokens;
+
 use Illuminate\Support\Facades\Hash; // ここでHashクラスをインポート
 
 class LoginController extends Controller
@@ -15,13 +15,50 @@ class LoginController extends Controller
     {
         $email = $request->email;
         $password = $request->password;
+        //response()->json(['work_time' => $email], 200);
+
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $user = User::where('email', $email)->first();
             if (!$user) {
                 return response()->json(['error' => 'ユーザーが見つかりません。'], 404);
             }
-            $token = $user->createToken('AccessToken')->plainTextToken;
-            return response()->json(['token' => $token]);
+XSRF-TOKEN'work_time' => $user], 200);
+            $name = $user->name;
+            $email = $user->email;
+
+            $profile_picture = $user->profile_picture;
+            $posts = User::find($user->id)->attendances()->nowMonth()->get();
+          //  response()->json(['work_time' => $posts], 200);
+
+            foreach ($posts as $post) {
+                $clock_in = new \DateTime($post->clock_in);  // グローバルな DateTime クラスを使用
+                $clock_out = new \DateTime($post->clock_out);
+                $dammy_date = "1970-01-01 ";
+                $break_time = new \DateTime($dammy_date . $post->break_time);
+                $overtime = new \DateTime($dammy_date . $post->overtime);
+                $work_time = $clock_out->diff($clock_in); //退勤時間―出勤時間
+                $work_time_in_minutes = ($work_time->h * 60 + $work_time->i);
+                $break_time_in_minutes = ($break_time->format('H') * 60) + $break_time->format('i');  // 分単位に変換
+                $overtime_in_minutes = ($overtime->format('H') * 60) + $overtime->format('i');
+                $final_work_time_in_minutes = $work_time_in_minutes - $break_time_in_minutes + $overtime_in_minutes;
+                response()->json(['work_time' => $final_work_time_in_minutes], 200);
+            }
+            ;
+
+
+
+
+
+
+
+
+
+
+            //return response()->json(['posts' => $posts]);
+
+
+
+            //return response()->json(['token' => $token]);
         } else {
             return response()->json(['error' => '認証に失敗しました。'], 401);
         }
