@@ -22,6 +22,9 @@ class User extends Authenticatable
 
     // 登録・更新を不許可にするカラム（もし使いたい場合はこっちを使う）
     // protected $guarded = ['id'];
-
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 
 }

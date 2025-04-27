@@ -12,11 +12,11 @@ return new class extends Migration {
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unique();
+            $table->string('user_id');
             $table->dateTime('clock_in')->nullable();
             $table->dateTime('clock_out')->nullable();
-            $table->dateTime('break_time')->nullable();
-            $table->dateTime('overtime')->nullable();
+            $table->Time('break_time')->nullable();
+            $table->Time('overtime')->nullable();
             $table->string('status');
             $table->timestamps();
 
