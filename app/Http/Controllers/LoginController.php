@@ -11,21 +11,30 @@ use Illuminate\Support\Facades\Hash; // ここでHashクラスをインポート
 
 class LoginController extends Controller
 {    // リクエストからメールアドレスとパスワードを取得
-    public function login(LoginRequest $request)
-    {
-        
-        $email = $request->email;
-        $password = $request->password;
-        if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            $user = User::where('email', $email)->first();
-            if (!$user) {
-                return response()->json(['error' => 'ユーザーが見つかりません。'], 404);
-            }
-            $name = $user->name;
-            $email = $user->email;
 
-            $profile_picture = $user->profile_picture;
-            $posts = User::find($user->id)->attendances()->nowMonth()->get();
+
+        public function login(LoginRequest $request)
+        {
+            $email = $request->email;
+            $password = $request->password;
+            if (Auth::attempt(['email' => $email, 'password' => $password])) {
+                $user = User::where('email', $email)->first();
+                if (!$user) {
+                    return response()->json(['error' => 'ユーザーが見つかりません。'], 404);
+                }
+            } else {
+                return response()->json(['error' => '認証に失敗しました。'], 401);
+            }
+            \Log::info('Login Success', ['user' => Auth::user()]);
+            return response()->json(['message' => '認証成功'], 200);
+        }
+        public function user()
+        {
+            $user = Auth::user()->only('name', 'user_id', 'profile_picture');
+
+            $posts = User::find(Auth::id())->attendances()->nowMonth()->get();
+            return response()->json(['message' => "Ok"], 200);
+
             foreach ($posts as $post) {
                 $clock_in = new \DateTime($post->clock_in);  // グローバルな DateTime クラスを使用
                 $clock_out = new \DateTime($post->clock_out);
@@ -39,41 +48,18 @@ class LoginController extends Controller
                 $final_work_time_in_minutes = $work_time_in_minutes - $break_time_in_minutes + $overtime_in_minutes;
                 return response()->json(['work_time' => $final_work_time_in_minutes], 200);
             }
-            ;
-
-
-
-
-
-
-
-
-
-
-            //return response()->json(['posts' => $posts]);
-
-
-
-            //return response()->json(['token' => $token]);
-        } else {
-            return response()->json(['error' => '認証に失敗しました。'], 401);
         }
-    }
+
     public function new_create_account(Request $request)
     {
-        $name = $request->name;
-        $password = $request->password;
-        $email = $request->email;
-        $user = new user;
-        if (is_null($user->where('email', $email)->where('password', $password)->where('name', $name)->first())) {
-            echo "既に登録されています";
-        }
-        $user = Auth::create([
+        $user = User::create([
+            'user_id' => $request->user_id,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),  // パスワードはハッシュ化して保存
+            'password' => Hash::make($request->password),  // パスワードをハッシュ化
         ]);
-        return response()->json(['message' => '新規登録完了しました。'], 200);
+        Auth::login($user);
+
     }
     public function logout(Request $request)
     {

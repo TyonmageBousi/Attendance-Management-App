@@ -14,6 +14,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory; // これも追加
     // 登録・更新を許可するカラム
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'password',
