@@ -6,51 +6,38 @@ use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\UseCases\Loginuser;
+use App\UseCases\LoginUseCase as UseCase;
 
-use Illuminate\Support\Facades\Hash; // ここでHashクラスをインポート
 
 class LoginController extends Controller
 {    // リクエストからメールアドレスとパスワードを取得
 
+    private UseCase $useCase; // ← これを追加
+    public function __construct(UseCase $useCase)
+    {
+        $this->useCase = $useCase;
+    }
 
-    public function login(LoginRequest $request, )
+    public function login(LoginRequest $request)
     {
         $user = $request->all(); // ここで配列としてデータを受け取ります
-        $email = $user['email']; // 配列から値を取得
-        $password = $user['password']; // 配列から値を取得
-        
-        // 認証を試みる
-        if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            // 認証に成功した場合
-            $user = Auth::user(); // 認証されたユーザーを取得
-            return response()->json(['message' => '認証成功', 'user' => $user], 200);
-        } else {
-            // 認証に失敗した場合
-            return response()->json(['error' => '認証に失敗しました。'], 401);
+
+        $result = $this->useCase->login($user);
+
+        if ($result === 'error1') {
+            return response()->json(['error' => 'ユーザーが見つかりません。'], 404);
         }
-        
+        return response()->json(['message' => '認証成功'], 200);
     }
-    public function user(Loginuser $loginuser)
+
+    public function user()
     {
-        $user = Auth::user(); // 認証されたユーザーを取得
-        return response()->json(['message' => '認証成功', 'user' => $user], 200);
+        $posts = $this->useCase->get_user();
+        return response()->json(['message' => '認証成功', 'user' => $posts], 200);
     }
 
 
-    public function new_create_account(Request $request)
-    {
-        $user = User::create([
-            'user_id' => $request->user_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),  // パスワードをハッシュ化
-        ]);
-        Auth::login($user);
-        return response()->json(['user' => $user], 200);
 
-
-    }
     public function logout(Request $request)
     {
         // 現在のアクセストークンを削除
