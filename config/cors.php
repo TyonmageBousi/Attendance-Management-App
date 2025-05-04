@@ -14,7 +14,7 @@ return [
 
 'supports_credentials' => true,  // withCredentialsをtrueに設定
 
-'allowed_origins' => ['http://localhost:3000'],  // 許可するオリジンを指定
+'allowed_origins' => ['*'],  // 許可するオリジンを指定
 'allowed_origins_patterns' => [],
 'allowed_headers' => ['*'],  // 許可するヘッダーを指定（*は全てのヘッダーを許可）
 'allowed_methods' => ['*'],  // 許可するHTTPメソッドを指定（*は全てのメソッドを許可）
