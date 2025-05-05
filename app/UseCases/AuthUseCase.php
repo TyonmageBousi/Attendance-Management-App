@@ -1,30 +1,33 @@
 <?php
 
 namespace App\UseCases;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-class LoginUseCase
+class AuthUseCase
 {
 
     public function login($user)
     {
         $email = $user['email'];
         $password = $user['password'];
+
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             $user = User::where('email', $email)->first();
             if (!$user) {
-                return 'error1';
-                //return response()->json(['error' => 'ユーザーが見つかりません。'], 404);
-            } else {
-                return 'error2';
+                return null;
             }
+            // ユーザーが見つかった場合の処理
+            return $user;
         }
     }
 
-    public function get_user()
+    public function get_user($data)
     {
-        $user = Auth::user()->only('name', 'user_id');
-        $posts = User::find(Auth::id())->attendances()->nowMonth()->get();
+
+
+
+        $posts = User::find($data['id'])->attendances()->nowMonth()->get();
 
         foreach ($posts as $post) {
             $clock_in = new \DateTime($post->clock_in);
@@ -40,8 +43,8 @@ class LoginUseCase
             $post->work_time = $final_work_time_in_minutes;
         }
         $post = $final_work_time_in_minutes;
-        $user["attendance"] = $post;
-        return $user;
+        $data["attendance"] = $post;
+        return $data;
 
     }
 

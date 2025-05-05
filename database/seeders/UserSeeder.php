@@ -30,8 +30,8 @@ class UserSeeder extends Seeder
         User::create([
             'user_id' => 'tomic0115',
             'name' => 'tomic',
-            'email' => 'qcomekukumi@gmail.com',
-            'password' => Hash::make(8888),
+            'email' => 'comekukumi@gmail.com',
+            'password' => Hash::make(7777),
             'profile_picture' => $base64Image
         ]);
     }

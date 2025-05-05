@@ -30,5 +30,6 @@ class UpdateController extends Controller
         }
         $user = User::findOrFail(Auth::id());
         $user->update($data);
+        return response(['post' => $data]);
     }
 }
