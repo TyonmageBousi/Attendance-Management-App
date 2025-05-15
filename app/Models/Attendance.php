@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Attendance extends Model
 {
     protected $fillable = [
-        'user_id',
         'clock_in',
         'clock_out',
         'break_time',
         'overtime',
         'status',
     ];
+    protected $guarded = ['user_id'];
+
     // メソッド名は複数形
     public function user()
     {
