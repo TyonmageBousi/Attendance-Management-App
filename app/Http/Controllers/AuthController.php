@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use App\UseCases\LoginUseCase as UseCase;
+use App\UseCases\AuthUseCase as UseCase;
 
 
 class AuthController extends Controller
