@@ -24,3 +24,198 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  height: 10vh;
+  margin: 0 auto;
+}
+
+header h1 {
+  width: 50%;
+}
+
+header ul {
+  width: 50%;
+  margin-left: 45%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding-left: 0;
+}
+
+header li {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.index .page-top {
+  width: 100%;
+  height: 90vh;
+  /* 画面高さいっぱい */
+}
+
+.index .page-top img {
+  object-fit: cover;
+  /* 要素いっぱいに画像を表示（はみ出た部分は削除） */
+  width: 100%;
+  /* 親要素の幅いっぱい */
+  height: 100%;
+  /* 親要素の高さいっぱい */
+}
+
+.index .news {
+  display: flex;
+  width: 100%;
+}
+
+.index .news .title,
+.index .list .title {
+  width: 20%;
+  text-align: center;
+}
+
+.index .news .title p,
+.index .list p {
+  color: red;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.index .news .content {
+  width: 80%;
+  text-align: left;
+}
+
+.index .news .content li {
+  display: flex;
+}
+
+.index .news .content li p:first-of-type {
+  width: 20%;
+  text-align: center;
+}
+
+.index .news .content li p:last-of-type {
+  width: 80%;
+  text-align: left;
+}
+
+.index .list {
+  width: 100%;
+}
+
+.index .list ul {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  justify-content: center;
+}
+
+.index footer {
+  display: flex;
+  background-color: red;
+}
+
+
+.message .page_top {
+  max-width: 1440px;
+  width: 100%;
+  height: 20vh;
+  /* background-image: url("image/main.png"); */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.message .page_top p {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.message .title {
+  margin: 0 auto;
+  width: 850px;
+  height: 120px;
+  text-align: center;
+}
+
+.message .title p:first-of-type {
+  font-size: 40px;
+  margin-bottom: 20px;
+  font-size: 40px;
+  line-height: 60px;
+  letter-spacing: 5%;
+  color: #DD1B57;
+  font-weight: bold;
+}
+
+.message .title p:last-of-type {
+  font-size: 18px;
+  line-height: 28.8px;
+  letter-spacing: 5%;
+}
+
+
+.message .spearch {
+  max-width: 790px;
+  margin: 123px auto 0;
+}
+
+.message .spearch img {
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-right: 25px;
+  margin-bottom: 28px;
+}
+
+
+.message .spearch p {
+  font-size: 16px;
+  line-height: 25.6px;
+  letter-spacing: 5%;
+}
+
+.message .office {
+  width: 1110px;
+  height: 400px;
+  margin: 46px auto 100px;
+}
+
+footer {
+  max-width: 1440px;
+  width: 100%;
+  height: 158px;
+  background-color: #DD1B57;
+  margin: auto;
+}
+
+footer ul {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+
+}
+
+footer li {
+  margin-top: 60px;
+  color: white;
+}
+
+footer li:first-of-type {
+  margin-left: 165px;
+}
+
+footer li:not(:first-of-type) {
+  margin-left: 30px;
+
+}
