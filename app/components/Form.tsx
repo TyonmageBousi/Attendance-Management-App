@@ -19,15 +19,14 @@ export default function Test() {
             <p>日付を入れて</p>
             <input name="text"
                 value={content.date}
-                onChange={(e) => setContent({ ...content, date: e.target.value })} />
+                onChange={(e) => setContent({ ...content, date: e.target.value })} style={{ backgroundColor: 'white' }} />
             <p>内容を入れて</p>
             <input name="text" value={content.content}
-                onChange={(e) => setContent({ ...content, content: e.target.value })} />
+                onChange={(e) => setContent({ ...content, content: e.target.value })} style={{ backgroundColor: 'white' }} />
             <p></p>
             <button onClick={upload} > 投稿する</button>
-            <p>投稿内容</p>
             <ul>
-                <Contents contents={values}/>
+                <Contents contents={values} />
             </ul>
         </div>
     )

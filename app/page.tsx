@@ -1,50 +1,46 @@
 "use client";
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
-import Form  from "./components/Form";
+import Form from "./components/Form";
+import Image from 'next/image';
+import main from './assets/main.png';
+import image1 from './assets/Webメディア運営.png';
+import image2 from './assets/スクール事業.png';
+import image3 from './assets/人材紹介業.png';
+import Servise from "./components/Servise";
+
+const images = [
+    image1, image2, image3
+]
+
 export default function Example() {
     return (
         <div className="index">
             <Header />
             <div className="page-top">
-                <img src="image/main_image.png" alt="画像の説明" />
+                <Image src={main} alt="画像の説明" />
+                <p>START</p>
+                <p>仕事に最高のスタートを。</p>
             </div>
-
             <div className="news">
                 <div className="title">
                     <p>ニュース</p>
                 </div>
                 <div className="content">
-                    <ul>
-                        <Form/>
-                    </ul>
+                        <Form /> 
                 </div>
             </div>
-
             <div className="list">
                 <div className="title">
                     <p>サービス</p>
                 </div>
                 <ul>
-                    <li>
-                        <img src="image/人材紹介業.png" alt="人材紹介業の画像" />
-                    </li>
-                    <li>
-                        <img src="image/スクール事業.png" alt="スクール事業の画像" />
-                    </li>
-                    <li>
-                        <img src="image/Webメディア運営.png" alt="WEBメディア運営の画像" />
-                    </li>
+                    <Servise prop={images} />
                 </ul>
             </div>
-
-            <footer>
-                <p>ホーム</p>
-                <p>メッセージ</p>
-                <p>会社概要</p>
-            </footer>
-
+            <Footer />
             <p>@START</p>
         </div>
     );
